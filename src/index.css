@@ -1,0 +1,38 @@
+@import "tailwindcss";
+
+@import url("https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+@theme {
+   --color-primary: #0f697f;
+   --color-dark-primary: #2c525c;
+   --color-secondary: #53808b;
+   --color-input: #d3d3d3;
+   --color-header: #0f697f;
+   --color-sidebar-item: #0a3541;
+   --color-sidebar-subitem: #1f7a90;
+   --color-light-orange: #fff1f1;
+   --color-orange: #ff7a05;
+   --color-destructive: #bc0000;
+   --color-gold: #f3a21f;
+   --color-success: #00b527;
+   --color-gray: #516f77;
+}
+
+@layer {
+   body {
+      font-family: "Inter Tight", sans-serif;
+      font-optical-sizing: auto;
+   }
+
+   button {
+      @apply cursor-pointer active:scale-99;
+   }
+
+   .button {
+      @apply bg-primary text-white py-1.5 px-3 rounded-lg;
+   }
+
+   .button-secondary {
+      @apply bg-secondary text-white py-1.5 px-3 rounded-lg;
+   }
+}
