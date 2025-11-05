@@ -2,13 +2,18 @@ import { Contact, Lock, User2 } from "lucide-react";
 import Background from "../assets/component/Background";
 import InputLogin from "../assets/component/InputLogin";
 import LogoInline from "../assets/images/icon/Logo-inline.png";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Logo from "../assets/images/ququeing_icon.png";
 import { toast } from "sonner";
-import { useNavigate } from "react-router-dom";
 
 export default function Login() {
-   const navigate = useNavigate();
+   const user = JSON.parse(localStorage.getItem("user"));
+
+   useEffect(() => {
+      if (user) {
+         window.location.href = "/counter";
+      }
+   }, [user]);
 
    const [form, setForm] = useState({
       employeeId: "",
@@ -32,7 +37,9 @@ export default function Login() {
          return;
       }
 
-      navigate("/counter");
+      localStorage.setItem("user", JSON.stringify({ employeeId: form.employeeId, name: "John Doe" }));
+
+      window.location.href = "/counter";
    };
 
    return (

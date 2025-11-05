@@ -8,7 +8,7 @@ export default function RegistrarSelection() {
    const navigate = useNavigate();
 
    const onFormClick = (type) => {
-      navigate("/services/form", { state: { service: "Frontline", type } });
+      navigate("/services/form", { state: { service: "Registrar", type } });
    };
 
    return (

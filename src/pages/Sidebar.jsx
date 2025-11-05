@@ -6,13 +6,12 @@ export default function Sidebar() {
 
    const onTabChange = (tab) => {
       localStorage.setItem("activeTab", tab);
+      tab = tab.toLowerCase();
       navigate(`/${tab}`);
    };
 
-   console.log(activeTab);
-
    return (
-      <aside className='w-70 lg:w-80 bg-secondary h-[90vh] flex flex-col'>
+      <aside className='w-55 lg:w-80 bg-secondary flex flex-col fixed top-0 left-0 bottom-0 h-[92vh] mt-20 z-10'>
          <button
             className={`${
                activeTab === "Counter" && "bg-sidebar-item"

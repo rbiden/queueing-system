@@ -9,15 +9,39 @@ import Radio from "../assets/component/Radio";
 import { useState } from "react";
 import ServiceTitle from "../assets/component/ServiceTitle";
 
+const REASONS = {
+   Cashier: {
+      Payment: ["Insufficient Funds", "Card Declined", "Payment Timeout"],
+      Inquiry: ["Balance Check", "Transaction History", "Account Details"],
+   },
+   Registrar: {
+      "Document Request": ["Transcript of Records", "Diploma", "Enrollment Certificate"],
+      Inquiry: ["Add Course", "Drop Course", "Change Section"],
+   },
+   Frontline: {
+      Inquiry: ["Service Hours", "Location of Offices", "Required Documents"],
+   },
+   OSA: {
+      Appointment: ["Counseling", "Career Guidance", "Personal Matters"],
+      Inquiry: ["Scholarship Opportunities", "Event Information", "General Questions"],
+   },
+};
+
 export default function ServiceForm() {
    const navigate = useNavigate();
-   const { service, type } = useLocation().state;
+   const { service, type } = useLocation()?.state || {};
 
-   const [form, setForm] = useState({
+   const defaultForm = {
       type: "student",
       studentNo: "",
       reason: "",
-   });
+   };
+
+   const [form, setForm] = useState(defaultForm);
+
+   const onClear = () => {
+      setForm(defaultForm);
+   };
 
    const onRadioChange = (e) => {
       console.log(e.target.value);
@@ -41,11 +65,11 @@ export default function ServiceForm() {
             BACK
          </button>
 
-         <section className='flex flex-col items-center justify-center mb-8 lg:mb-24'>
+         <section className='flex flex-col items-center justify-center mb-8 lg:mb-24 w-full px-6 lg:px-0'>
             <ServiceTitle title={`${service} - ${type}`} />
 
-            <div className='bg-dark-primary py-8 px-24 rounded-3xl w-150 flex flex-col mt-8'>
-               <div className='flex items-center justify-center gap-12 mb-8'>
+            <div className='bg-dark-primary py-6 px-8 lg:px-24 rounded-3xl w-4/5 lg:w-180 flex flex-col mt-8'>
+               <div className='flex items-center justify-center gap-12 mb-8 mt-4'>
                   <Radio
                      id='visitor'
                      value='visitor'
@@ -64,7 +88,7 @@ export default function ServiceForm() {
                   />
                </div>
 
-               <div className='space-y-4'>
+               <div className='space-y-4 mt-4'>
                   <Input
                      label='Student no:'
                      className='gap-8'
@@ -72,14 +96,16 @@ export default function ServiceForm() {
                      onChange={(e) => setForm({ ...form, studentNo: e.target.value })}
                   />
                   <Select
-                     className='gap-5'
-                     options={["Cashier", "Cashier 2", "Cashier 3"]}
+                     className='gap-5.5'
+                     options={REASONS[service][type] || []}
                      label='Payment for:'
                      name='cashier'
                   />
                </div>
 
-               <button className='bg-secondary text-white px-6 py-1.5 rounded-lg self-end mt-6'>Clear</button>
+               <button className='bg-secondary text-white px-6 py-1.5 rounded-lg self-end mt-6' onClick={onClear}>
+                  Clear
+               </button>
             </div>
 
             <button className='bg-secondary text-white px-8 py-2 rounded-full text-xl mt-6'>Generate Ticket</button>
